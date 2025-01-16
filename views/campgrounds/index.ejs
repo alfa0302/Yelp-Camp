@@ -1,0 +1,84 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link
+  crossorigin="anonymous"
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+/>
+<link
+  crossorigin="anonymous"
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+/>
+
+<h1 class="text-center mb-4 fw-bold">Explore Campgrounds</h1>
+<div
+  id="map"
+  style="height: 500px; width: 100%; border-radius: 10px"
+  class="mb-5 shadow-sm"
+></div>
+
+<div class="text-center mb-5">
+  <p class="text-muted mb-2">
+    Discover and add new campgrounds to our growing collection!
+  </p>
+  <a href="/campgrounds/new" class="btn btn-lg btn-success shadow-sm"
+    ><i class="fas fa-plus-circle"></i> Add Campground</a
+  >
+</div>
+
+<div class="row g-4">
+  <% for (let campground of campgrounds) { %>
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-sm h-100">
+      <% if (campground.images && campground.images.length > 0) { %>
+      <img
+        crossorigin="anonymous"
+        class="card-img-top"
+        style="height: 300px; width: 100%"
+        alt="<%= campground.title %>"
+        src="<%= campground.images[0].url %>"
+      />
+      <% } else { %>
+      <img
+        crossorigin="anonymous"
+        class="card-img-top"
+        alt="default"
+        src="https://res.cloudinary.com/dz7pizbh1/image/upload/v1736585697/Camp/mheyigyv2eyszkqzxenz.jpg"
+      />
+      <% } %>
+      <div class="card-body">
+        <h5 class="card-title text-primary"><%= campground.title %></h5>
+        <p
+          class="card-text text-truncate"
+          style="max-height: 3rem; overflow: hidden"
+        >
+          <%= campground.description %>
+        </p>
+        <p class="card-text text-muted small">
+          <i class="fas fa-map-marker-alt"></i> <%= campground.location %>
+        </p>
+        <a
+          class="btn btn-outline-primary btn-sm"
+          href="/campgrounds/<%= campground._id %>"
+        >
+          View Details
+        </a>
+      </div>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<script>
+  const campgrounds = `<%- JSON.stringify(campgrounds) %>`;
+</script>
+<script
+  crossorigin="anonymous"
+  src="https://unpkg.com/leaflet/dist/leaflet.js"
+></script>
+<script
+  crossorigin="anonymous"
+  src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"
+></script>
+<script src="/javascripts/indexPageMap.js"></script>
