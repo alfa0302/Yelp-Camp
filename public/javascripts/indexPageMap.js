@@ -3,7 +3,10 @@ var map = L.map("map", {
   zoomControl: false,
 });
 L.tileLayer(
-  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }
 ).addTo(map);
 var markers = L.markerClusterGroup();
 camps.forEach((camp) => {
